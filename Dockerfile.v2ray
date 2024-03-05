@@ -25,6 +25,8 @@ RUN wget -O /usr/share/v2ray/geoip.dat https://github.com/v2fly/geoip/releases/l
 # 设置启动配置基本信息
 ENV V2RAY_VMESS_PORT=10086
 ENV V2RAY_CLIENT_ID=b831381d-6324-4d53-ad4f-8cda48b30811
+# 设置时区为上海
+ENV TZ=Asia/Shanghai
 
 # 将bin目录下可执行文件添加到/usr/local/bin下
 COPY bin/sv2ray /usr/local/bin/
