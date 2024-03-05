@@ -1,7 +1,8 @@
 FROM golang:1.21 AS builder
 
-ARG V2RAY_TAG=5.14.1
+ARG V2RAY_TAG=""
 # https://github.com/v2fly/v2ray-core.git
+# https://www.v2fly.org/guide/start.html
 # 编译源代码
 ARG BUILD_LDFLAGS="-s -w -buildid="
 RUN cd /tmp && wget https://github.com/v2fly/v2ray-core/archive/refs/tags/v${V2RAY_TAG}.tar.gz -O v2ray.tar.gz \
@@ -20,10 +21,18 @@ RUN mkdir -p /var/log/v2ray /usr/share/v2ray /etc/v2ray/
 RUN wget -O /usr/share/v2ray/geosite.dat https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat
 RUN wget -O /usr/share/v2ray/geoip-only-cn-private.dat https://github.com/v2fly/geoip/releases/latest/download/geoip-only-cn-private.dat
 RUN wget -O /usr/share/v2ray/geoip.dat https://github.com/v2fly/geoip/releases/latest/download/geoip.dat
+
+# 设置启动配置基本信息
+ENV V2RAY_VMESS_PORT=10086
+ENV V2RAY_CLIENT_ID=b831381d-6324-4d53-ad4f-8cda48b30811
+
 # 将bin目录下可执行文件添加到/usr/local/bin下
 COPY bin/sv2ray /usr/local/bin/
 # 赋予启动sshd可执行文件权限
 RUN chmod +x /usr/local/bin/sv2ray
+
+EXPOSE ${V2RAY_VMESS_PORT}
+
 # 启动SSH服务
 ENTRYPOINT ["sv2ray"]
 # Use SIGQUIT instead of default SIGTERM to cleanly drain requests

@@ -1,29 +1,25 @@
 #!/usr/bin/env sh
-
 if [ ! -e "/etc/v2ray/config.json" ]; then
-    v2rayuuid=$(v2ray uuid)
     cat > /etc/v2ray/config.json <<EOF
 {
   "inbounds": [{
-    "port": 9000,
+    "port": ${V2RAY_VMESS_PORT},
     "protocol": "vmess",
     "settings": {
       "clients": [
         {
-          "id": "${v2rayuuid}",
-          "level": 1,
-          "alterId": 64
+          "id": "${V2RAY_CLIENT_ID}"
         }
       ]
     }
   }],
   "outbounds": [{
-    "protocol": "freedom",
-    "settings": {}
+    "protocol": "freedom"
   }]
 }
 EOF
-fi
 
+  echo "Start default configuration, enable port: ${V2RAY_VMESS_PORT}, client id: ${V2RAY_CLIENT_ID}"
+fi
 
 v2ray run -config /etc/v2ray/config.json
