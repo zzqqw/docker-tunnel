@@ -5,8 +5,8 @@ echo "Set SSH connection account: ${SSH_USER}, connection password: ${SSH_PASSWO
 useradd -m -d /home/${SSH_USER} -s /bin/bash ${SSH_USER}
 
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
-
 echo "AllowUsers ${SSH_USER}" >> /etc/ssh/sshd_config
+echo "${SSH_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 echo "start ssh ...."
 
