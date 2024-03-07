@@ -22,3 +22,15 @@ docker run -it --name v2ray -p 10086:10086 -v /your path/config.json:/etc/v2ray/
 kubectl apply -f  https://raw.githubusercontent.com/zzqqw/docker-tunnel/main/deployment-v2ray.yaml
 ~~~
 
+## xray隧道
+
+~~~
+//构建镜像
+docker build --build-arg="XRAY_TAG=1.8.8" -f Dockerfile.xray -t zhiqiangwang/tunnel:xray . 
+//本地运行（默认配置）
+docker run -it --name xray -p 9000:9000 -e XRAY_VMESS_PORT=9000 -e XRAY_CLIENT_ID=b831381d-6324-4d53-ad4f-8cda48b30811 -d zhiqiangwang/tunnel:xray
+//本地运行（自定义配置文件）
+docker run -it --name xray -p 9000:9000 /your path/config.json:/etc/xray/config.json -d zhiqiangwang/tunnel:xray
+//创建k8s deployment
+kubectl apply -f  https://raw.githubusercontent.com/zzqqw/docker-tunnel/main/deployment-xray.yaml
+~~~

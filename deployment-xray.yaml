@@ -7,34 +7,34 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: v2ray-tunnel
+  name: xray-tunnel
   labels:
-    app: v2ray-tunnel
+    app: xray-tunnel
   namespace: kube-serve
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: v2ray-tunnel
+      app: xray-tunnel
   template:
     metadata:
       labels:
-        app: v2ray-tunnel
+        app: xray-tunnel
     spec:
       containers:
-        - name: v2ray-tunnel
+        - name: xray-tunnel
           env:
-            - name: V2RAY_VMESS_PORT
-              value: "10086"
-            - name: V2RAY_CLIENT_ID
-              value: "b831381d-6324-4d53-ad4f-8cda48b30811"
-          image: zhiqiangwang/tunnel:v2ray
+            - name: XRAY_VMESS_PORT
+              value: "9000"
+            - name: XRAY_CLIENT_ID
+              value: "1eb6e917-774b-4a84-aff6-b058577c60a5"
+          image: zhiqiangwang/tunnel:xray
           imagePullPolicy: Always
           resources:
             requests:
               cpu: 100m
               memory: 100Mi
           ports:
-            - containerPort: 10086
-              name: tcp-10086
+            - containerPort: 9000
+              name: tcp-9000
               protocol: TCP

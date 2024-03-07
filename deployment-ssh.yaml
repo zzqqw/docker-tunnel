@@ -7,22 +7,22 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ubuntu-ssh
+  name: ubuntu-ssh-tunnel
   labels:
-    app: ubuntu-ssh
+    app: ubuntu-ssh-tunnel
   namespace: kube-serve
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ubuntu-ssh
+      app: ubuntu-ssh-tunnel
   template:
     metadata:
       labels:
-        app: ubuntu-ssh
+        app: ubuntu-ssh-tunnel
     spec:
       containers:
-        - name: ubuntu-ssh
+        - name: ubuntu-ssh-tunnel
           env:
             - name: SSH_USER
               value: k8ssshuser
