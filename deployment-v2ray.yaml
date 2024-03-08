@@ -31,9 +31,9 @@ spec:
           image: zhiqiangwang/tunnel:v2ray
           imagePullPolicy: Always
           resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
+            limits:
+              cpu: 1000m
+              memory: 500Mi
           ports:
             - containerPort: 10086
               name: tcp-10086
